@@ -10,15 +10,22 @@ will not need to edit the lines above and below them.
 
 function Stack () {
   // your code here
+  this.stack = [];
+  // return this.stack;
 }
 
 Stack.prototype.add = function (item) {
   // your code here
+  this.stack.push(item);
+
   return this; // for chaining, do not edit
 };
 
 Stack.prototype.remove = function () {
   // your code here
+
+  var popped = this.stack.pop()
+  return popped;
 };
 
 //-----------------------------------------
@@ -72,22 +79,55 @@ LinkedList.prototype.forEach = function (iterator) {
 
 function Alist () {
   // your code here
+  this.head = null;
+  this.tail = null;
 }
 
 function AlistNode (key, value, next) {
   this.key = key;
   this.value = value;
-  this.next = next;
+  this.next = next || null;
 }
 
 Alist.prototype.set = function (key, value) {
   // your code here
-  return this; // for chaining; do not edit
+  if (this.head === null){
+    this.head = new AlistNode(key,value);
+    // console.log("null", this.head);
+  } else if (this.head != null){
+    console.log('******')
+    console.log("not null", this.head);
+    var newNode = this.head;
+    this.head = new AlistNode(key,value)
+    newNode.next = this.head
+    console.log('end', this.head)
+
+  }
+
+    return this; // for chaining; do not edit
+  
 };
 
 Alist.prototype.get = function (key) {
   // your code here
+    if(this.head){
+      console.log('%%%%%%%%%%')
+      console.log(this.head)
+      var currentHead = this.head;
+      // console.log(currentHead)
+      this.head = currentHead.next;
+      // console.log(this.head)
+      console.log(currentHead.value)
+      return currentHead.value;
+    }  else {
+      this.head = null;
+    }
 };
+
+
+//"getting" the key/values in the wrong order
+//something to do with setting?
+//reset head?
 
 
 //-----------------------------------------
