@@ -5,6 +5,10 @@ You can insert new lines at those locations, but you
 will not need to edit the lines above and below them.
 */
 
+// Hey, it looks like you struggled a lot during this checkpoint.
+// Lets schedule some time to go over to review this checkpoint together.
+// I'll reach out via Slack.
+
 //-----------------------------------------
 // Stacks
 
@@ -35,6 +39,9 @@ Stack.prototype.remove = function () {
 
 function Queue () {
   // your code here
+  // As I'm sure you figured out, you don't actually need the
+  // head and tail markers if you use the built in array methods
+  // in the .add and .remove methods (as you do below)!
   this.head = 0;
   this.tail = 0;
   this.arr = [];
@@ -77,12 +84,14 @@ LinkedList.prototype.addToTail = function (item) {
     this.tail = new ListNode(item, oldTail, null);
     oldTail.next = this.tail;
   }
-  
+
   return this; // for chaining, do not edit
 };
 
 LinkedList.prototype.removeFromTail = function () {
   // your code here
+  // It looks like you got a bit lost in the logic of this one.
+  // You've got all the right pieces, just not in the right order.
   if (this.tail){
     var currentTail = this.tail;
     this.tail = currentTail.prev;
@@ -98,6 +107,9 @@ LinkedList.prototype.removeFromTail = function () {
 
 LinkedList.prototype.forEach = function (iterator) {
   // your code here
+  // It seems like you gave up on this spec before you got very far...
+  // Implementing a code pattern like this is pretty important to
+  // understand, so I think its worth revisiting.
   if (this.head.next === null){
     return iterator(this.head.item)
   }
@@ -133,17 +145,22 @@ Alist.prototype.set = function (key, value) {
   }
   //adding on 'color' twice....why
      // for chaining; do not edit
+  // It's actually adding two duplicate nodes – it's
+  // important to recognize the difference between a 'Node'
+  // object and a 'value' of that node. See if you can mess
+  // around with some console logs to trace this error...
   if (!value){
     this.value = undefined;
   }
   return this;
-  
+
 };
 
 Alist.prototype.get = function (key) {
   // your code here
 
-  console.log(this.head)
+  // Always always always label your console.logs!
+  console.log('Alist.head inside .get: ', this.head)
   if(this.head){
     var currentHead = this.head
     this.head = currentHead.next;
@@ -151,7 +168,10 @@ Alist.prototype.get = function (key) {
   }
 
 
-    //returning value in wrong order, can't figure out if related to .set func 
+    //returning value in wrong order, can't figure out if related to .set func
+
+    // It's actually not. Again, it's worth revisiting the Node structure
+    // and what's the difference between a 'Node' and its 'value'.
 };
 
 
@@ -181,7 +201,10 @@ function HashTable () {
   this.buckets.push(this.hashedBuckets)
   console.log(this.buckets)
   // your code here
-  
+
+  // While it's possible, implementing this spec without a working
+  // Alist would be really challenging! (Also, the specs explicitly
+  // require an Alist.)
 }
 
 
@@ -209,6 +232,9 @@ function BinarySearchTree (val) {
 
 BinarySearchTree.prototype.insert = function (val) {
   // your code here
+  // I've seen this logic broken down so that you can nest the
+  // 'this.value > val' check, but I really don't mind this structure –
+  // it's flatter and clearer!
   if (this.value > val && this.left === null){
     this.left = new BinarySearchTree(val);
   }
@@ -225,6 +251,10 @@ BinarySearchTree.prototype.insert = function (val) {
 };
 
 BinarySearchTree.prototype.min = function () {
+  // It looks like you struggled a lot with .min and .max. Were you
+  // caught up trying to create an iterative solution? That's provided
+  // as extra credit for a reason...
+
   // your code here
   // console.log(this.value)
   // console.log(this.left.value)
@@ -265,6 +295,9 @@ BinarySearchTree.prototype.max = function () {
 
 BinarySearchTree.prototype.contains = function (val) {
   // your code here
+  // I'm not going to lie, this is a mess. It looks like you
+  // got caught up by losing track of the logic thread, and only
+  // ended up over-complicating things.
   var bool = true;
   if (bool){
     if (this.value === val){
