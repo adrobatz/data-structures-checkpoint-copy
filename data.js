@@ -35,14 +35,20 @@ Stack.prototype.remove = function () {
 
 function Queue () {
   // your code here
+  this.head = 0;
+  this.tail = 0;
+  this.arr = [];
 }
 
 Queue.prototype.add = function (item) {
   // your code here
+  this.arr.push(item)
   return this; // for chaining, do not edit
 };
 
 Queue.prototype.remove = function () {
+  var removed = this.arr.shift();
+  return removed;
   // your code here
 };
 
@@ -63,15 +69,42 @@ function ListNode (item, prev, next) {
 
 LinkedList.prototype.addToTail = function (item) {
   // your code here
+  if (this.tail === null && this.head === null){
+    this.tail = new ListNode(item, null, null);
+    this.head = this.tail;
+  } else {
+    var oldTail = this.tail;
+    this.tail = new ListNode(item, oldTail, null);
+    oldTail.next = this.tail;
+  }
+  
   return this; // for chaining, do not edit
 };
 
 LinkedList.prototype.removeFromTail = function () {
   // your code here
+  if (this.tail){
+    var currentTail = this.tail;
+    this.tail = currentTail.prev;
+    this.tail.next = null;
+    return currentTail.item
+  } else if (this.head === null){
+    return undefined;
+  } else {
+    this.head = null;
+    this.tail = null;
+  }
 };
 
 LinkedList.prototype.forEach = function (iterator) {
   // your code here
+  if (this.head.next === null){
+    return iterator(this.head.item)
+  }
+  if (this.head && this.head.next != null){
+    return iterator(this.head.item);
+  }
+
 };
 
 //-----------------------------------------
@@ -90,42 +123,35 @@ function AlistNode (key, value, next) {
 
 Alist.prototype.set = function (key, value) {
   // your code here
+
   if (this.head === null){
-    this.head = new AlistNode(key, value, null);
-    // console.log(this.head)
+    this.head = new AlistNode(key, value);
   }
   if (this.head != null){
     var node = this.head;
-    this.head = new AlistNode(key, value);
-    this.head.next = node;
+    this.head = new AlistNode(key, value, node);
   }
-
+  //adding on 'color' twice....why
      // for chaining; do not edit
-
+  if (!value){
+    this.value = undefined;
+  }
   return this;
   
 };
 
 Alist.prototype.get = function (key) {
   // your code here
-  // if(this.head){
-  //   var currentHead = this.head
-  //   this.head = currentHead.next;
-  //   return currentHead.value
-  //   }   
-  if (this.head){
-    for (var word in this.head){
-      if (word === 'next'){
-        if (this.head[word] === null){
-          var currentHead = this.head;
-        this.head = currentHead.next;
-        return currentHead.value;
-        }
-        
-      }      
-    }
+
+  console.log(this.head)
+  if(this.head){
+    var currentHead = this.head
+    this.head = currentHead.next;
+    return currentHead.value
   }
-  return this.head.value
+
+
+    //returning value in wrong order, can't figure out if related to .set func 
 };
 
 
@@ -147,11 +173,23 @@ function hash (key) {
 
 function HashTable () {
   this.buckets = Array(20);
+  this.hashedBuckets = new Alist();
+  var hashed = hash(this.hashedBuckets)
+  console.log(hashed)
+  // hash(new Alist)
+  // console.log(this.hashedBuckets)
+  this.buckets.push(this.hashedBuckets)
+  console.log(this.buckets)
   // your code here
+  
 }
+
+
+
 
 HashTable.prototype.set = function (key, value) {
   // your code here. DO NOT simply set a prop. on an obj., that is cheating.
+  console.log(this.buckets.head)
   return this; // for chaining, do not edit
 };
 
@@ -165,14 +203,12 @@ HashTable.prototype.get = function (key) {
 function BinarySearchTree (val) {
   // your code here
   this.value = val;
-  this.counter = 1;
   this.left = null;
   this.right = null;
 }
 
 BinarySearchTree.prototype.insert = function (val) {
   // your code here
-  this.counter++;
   if (this.value > val && this.left === null){
     this.left = new BinarySearchTree(val);
   }
@@ -268,6 +304,4 @@ BinarySearchTree.prototype.traverse = function (iterator) {
   if(this.right){
     this.right.traverse(iterator)
   }
-
-  console.log(iterator)
 };
